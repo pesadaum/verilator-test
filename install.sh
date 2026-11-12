@@ -17,7 +17,6 @@ sudo apt-get install git autoconf flex bison
 
 sudo apt-get install gtkwave  # Optional Waveform viewer
 
-
 git clone https://github.com/verilator/verilator   # Only first time
 
 cd verilator
