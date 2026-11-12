@@ -11,7 +11,7 @@ always @ (posedge clk) begin
     end
     else begin
         counter <= counter + 1;
-        $display("Hello World!");
+        $display("[%4t ps] Hello World!", $time);
     end
 end
     

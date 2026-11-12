@@ -10,12 +10,13 @@ OBJ_DIR ?= $(abspath $(dir $(DESIGN))obj_dir)
 
 
 # Optional arguments for verilator
-OPT_ARGS ?=
+VLT_MAIN_ARGS ?=
+VLT_OPT_ARGS ?=
 WAVES ?= 0
 
 
 ifeq ($(WAVES), 1)
-	OPT_ARGS += --trace
+	VLT_OPT_ARGS += --trace
 endif
 
 clean:
@@ -23,9 +24,10 @@ clean:
 
 compile:
 	@mkdir -p $(RESULTS_DIR) || true
-	verilator --binary --timing --top-module $(DESIGN_TOP) -I$(dir $(DESIGN)) --Mdir $(OBJ_DIR) $(DESIGN) $(OPT_ARGS) 2>&1 | tee $(RESULTS_DIR)/verilator.log
+	verilator --binary --timing --top-module $(DESIGN_TOP) -I$(dir $(DESIGN)) --Mdir $(OBJ_DIR) $(DESIGN) $(VLT_OPT_ARGS) 2>&1 | tee $(RESULTS_DIR)/compile.log
 
 run: compile
-	$(OBJ_DIR)/V$(DESIGN_TOP)
+	$(OBJ_DIR)/V$(DESIGN_TOP) +verilator+log+file+$(RESULTS_DIR)/run.log
+	cat $(RESULTS_DIR)/run.log
 
 all: compile run
