@@ -19,7 +19,15 @@ module hw_tb();
         forever #5 clk = ~clk;
     end
 
+    import "DPI-C" function string getenv(input string env_name) /*verilator dpi_c_decl "char* getenv(const char*)"*/;
+
     initial begin
+
+        static string vcd_path = getenv("RESULTS_DIR");
+        $display("VCD path: %s", vcd_path);
+        $dumpfile({vcd_path, "/hw_tb.vcd"});
+
+        $dumpvars();
         // Reset the DUT
         rst_n = 0;
         #10;
