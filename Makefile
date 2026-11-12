@@ -7,4 +7,5 @@ ifneq ($(filter $(SUPPORTED_TOOLS),$(TOOL)),$(TOOL))
 $(error Unsupported TOOL '$(TOOL)'; supported tools: $(SUPPORTED_TOOLS))
 endif
 
-include tools/$(TOOL).mk
+# include tools/gtkwave/gtkwave.mk
+include tools/verilator/verilator.mk
